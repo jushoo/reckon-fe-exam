@@ -31,14 +31,11 @@ export function Summary({ data }: Props) {
     const values = data.map((stock) => stock.price);
 
     setTableData((t) => {
-      console.log("t", t["AFAIK"]);
       return Object.fromEntries(
         keys.map((key, i) => [key, [...t[key], values[i]]])
       );
     });
   }, [data]);
-
-  console.log("tabledata", tableData);
 
   return (
     <div className="flex flex-col">
