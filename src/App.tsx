@@ -1,21 +1,23 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Log } from "./components/Log";
 import { Summary } from "./components/Summary";
-
-const queryClient = new QueryClient();
+import useStockPriceData from "./hooks/useStockPriceData";
 
 function App() {
+  const { data, isPending, error } = useStockPriceData();
+
+  console.log(data);
+
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <div className="flex w-full justify-center min-h-screen py-24">
         <div className="flex-1 px-8">
-          <Log />
+          <Log data={data} loading={isPending} error={error} />
         </div>
         <div className="flex-1 px-8">
           <Summary />
         </div>
       </div>
-    </QueryClientProvider>
+    </>
   );
 }
 

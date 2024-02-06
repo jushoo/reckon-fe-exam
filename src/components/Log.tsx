@@ -1,12 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { StockPriceResponse } from "../schema/stock-price.schema";
 
-export function Log() {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["stocksData"],
-    queryFn: () =>
-      fetch("https://join.reckon.com/stock-pricing").then((res) => res.json()),
-  });
+interface Props {
+  data: StockPriceResponse | undefined;
+  loading: boolean;
+  error: Error | null;
+}
 
+export function Log({ data, loading, error }: Props) {
   return (
     <div className="justify-start flex-col w-full">
       <div className="flex justify-between">
@@ -16,20 +16,18 @@ export function Log() {
         </button>
       </div>
 
-      {isPending && <>Loading...</>}
+      {loading && <>Loading...</>}
 
-      {console.log(data)}
-
-      {data && (
-        <div className="flex-1 bg-slate-50 rounded shadow-lg h-full p-4 mt-4">
-          Updates for: {new Date().toISOString()}
-          {data.map((stockPrice) => (
-            <p>
+      <div className="flex-1 bg-slate-50 rounded shadow-lg h-full p-4 mt-4 text-slate-500">
+        Updates for: {new Date().toISOString()}
+        {error && <p>Failed fetching data, retrying in 2s...</p>}
+        {data &&
+          data.map((stockPrice) => (
+            <p key={stockPrice.code}>
               {stockPrice.code}: {stockPrice.price}{" "}
             </p>
           ))}
-        </div>
-      )}
+      </div>
     </div>
   );
 }
