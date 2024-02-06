@@ -5,8 +5,6 @@ import useStockPriceData from "./hooks/useStockPriceData";
 function App() {
   const { data, isPending, error } = useStockPriceData();
 
-  console.log(data);
-
   return (
     <>
       <div className="flex w-full justify-center min-h-screen py-24">

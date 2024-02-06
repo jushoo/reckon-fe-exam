@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { StockPriceResponse } from "../schema/stock-price.schema";
 
 interface Props {
@@ -6,7 +7,29 @@ interface Props {
   error: Error | null;
 }
 
+interface UpdatesState {
+  date: string;
+  updates: StockPriceResponse | undefined;
+}
+
 export function Log({ data, loading, error }: Props) {
+  const [updates, setUpdates] = useState<UpdatesState[]>([
+    {
+      date: new Date().toISOString(),
+      updates: data,
+    },
+  ]);
+
+  useEffect(() => {
+    setUpdates((u) => [
+      {
+        date: new Date().toISOString(),
+        updates: data,
+      },
+      ...u,
+    ]);
+  }, [data]);
+
   return (
     <div className="justify-start flex-col w-full">
       <div className="flex justify-between">
@@ -18,14 +41,20 @@ export function Log({ data, loading, error }: Props) {
 
       {loading && <>Loading...</>}
 
-      <div className="flex-1 bg-slate-50 rounded shadow-lg h-full p-4 mt-4 text-slate-500">
-        Updates for: {new Date().toISOString()}
-        {error && <p>Failed fetching data, retrying in 2s...</p>}
-        {data &&
-          data.map((stockPrice) => (
-            <p key={stockPrice.code}>
-              {stockPrice.code}: {stockPrice.price}{" "}
-            </p>
+      <div className="flex-1 bg-slate-50 rounded shadow-lg max-h-96 p-4 mt-4 text-slate-500 overflow-y-scroll">
+        {updates &&
+          updates.map((data) => (
+            <>
+              {error && <p>Failed fetching data, retrying in 2s...</p>}
+              {data.updates?.length && <p>Updates for: {data.date}</p>}
+              {data.updates?.map((stockPrice) => (
+                <p key={`${stockPrice.code}-${stockPrice.price}`}>
+                  {stockPrice.code}: {stockPrice.price}{" "}
+                </p>
+              ))}
+              <br />
+              <br />
+            </>
           ))}
       </div>
     </div>
