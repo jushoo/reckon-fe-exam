@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { StockPriceResponse } from "../schema/stock-price.schema";
-import { _ } from "lodash";
+import { max, min } from "lodash";
 
 interface Props {
   data: StockPriceResponse;
@@ -12,7 +12,7 @@ interface TableState {
   [key: string]: number[];
 }
 
-export function Summary({ data, loading, error }: Props) {
+export function Summary({ data }: Props) {
   const [tableData, setTableData] = useState<TableState>({});
 
   useEffect(() => {
@@ -59,8 +59,8 @@ export function Summary({ data, loading, error }: Props) {
             <tr key={key}>
               <td>{key}</td>
               <td>{value[0]}</td>
-              <td>{_.min(value)}</td>
-              <td>{_.max(value)}</td>
+              <td>{min(value)}</td>
+              <td>{max(value)}</td>
               <td>{value[value.length - 1]}</td>
             </tr>
           ))}

@@ -12,7 +12,11 @@ function App() {
           <Log data={data} loading={isPending} error={error} />
         </div>
         <div className="flex-1 px-8">
-          <Summary data={data} loading={isPending} error={error} />
+          {!data ? (
+            <p>Loading...</p>
+          ) : (
+            <Summary data={data} loading={isPending} error={error} />
+          )}
         </div>
       </div>
     </>
