@@ -42,11 +42,11 @@ export function Log({ data, loading, error }: Props) {
   }
 
   return (
-    <div className="justify-start flex-col w-full">
+    <div className="justify-start w-full h-full">
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold">Log</h1>
         <button
-          className="rounded bg-blue-500 px-4 py-2  m-2 text-white hover:cursor-pointer hover:bg-blue-700"
+          className="px-4 py-2 m-2 text-white bg-blue-500 rounded hover:cursor-pointer hover:bg-blue-700"
           onClick={handlePauseResume}
         >
           {isPolling ? `Pause Log` : `Resume Log`}
@@ -55,7 +55,7 @@ export function Log({ data, loading, error }: Props) {
 
       {loading && <>Loading...</>}
 
-      <div className="flex-1 bg-slate-50 rounded shadow-lg max-h-96 p-4 mt-4 text-slate-500 overflow-y-scroll">
+      <div className="max-h-full p-4 overflow-y-scroll rounded shadow-lg bg-slate-50 text-slate-500">
         {updates &&
           updates.map((data) => (
             <>

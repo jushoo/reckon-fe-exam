@@ -7,12 +7,12 @@ function App() {
 
   return (
     <>
-      <div className="flex w-full justify-center min-h-screen py-24">
-        <div className="flex-1 px-8">
+      <div className="flex justify-center w-full max-h-screen py-4">
+        <div className="flex-1 max-h-full px-8">
           <Log data={data} loading={isPending} error={error} />
         </div>
         <div className="flex-1 px-8">
-          <Summary />
+          <Summary data={data} loading={isPending} error={error} />
         </div>
       </div>
     </>
