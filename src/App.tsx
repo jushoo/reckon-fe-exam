@@ -7,18 +7,18 @@ function App() {
 
   return (
     <>
-      <div className="flex justify-center w-full max-h-screen py-4">
-        <div className="flex-1 max-h-full px-8">
-          <Log data={data} loading={isPending} error={error} />
-        </div>
-        <div className="flex-1 px-8">
-          {!data ? (
-            <p>Loading...</p>
-          ) : (
+      <main className="flex flex-row justify-between h-screen p-24">
+        {!data ? (
+          <div className="flex items-center justify-center w-full h-full">
+            <p className="text-3xl font-bold">Loading...</p>
+          </div>
+        ) : (
+          <>
+            <Log data={data} loading={isPending} error={error} />
             <Summary data={data} loading={isPending} error={error} />
-          )}
-        </div>
-      </div>
+          </>
+        )}
+      </main>
     </>
   );
 }

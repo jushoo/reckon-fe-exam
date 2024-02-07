@@ -38,27 +38,29 @@ export function Summary({ data }: Props) {
   }, [data]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full min-h-full mx-4">
       <div className="text-3xl font-bold">Summary</div>
-      <table className="table-auto">
+      <table className="mt-8 text-left rounded table-auto bg-slate-200">
         <thead>
-          <tr>
-            <th>Stock</th>
-            <th>Starting</th>
-            <th>Lowest</th>
-            <th>Highest</th>
-            <th>Current</th>
+          <tr className="text-xl text-white bg-slate-500">
+            <th className="p-4 border-b border-white">Stock</th>
+            <th className="p-4 border-b border-white">Starting</th>
+            <th className="p-4 border-b border-white">Lowest</th>
+            <th className="p-4 border-b border-white">Highest</th>
+            <th className="p-4 border-b border-white">Current</th>
           </tr>
         </thead>
 
         <tbody>
           {Object.entries(tableData).map(([key, value]) => (
             <tr key={key}>
-              <td>{key}</td>
-              <td>{value[0]}</td>
-              <td>{min(value)}</td>
-              <td>{max(value)}</td>
-              <td>{value[value.length - 1]}</td>
+              <td className="p-4 font-bold border-b border-white">{key}</td>
+              <td className="p-4 border-b border-white">{value[0]}</td>
+              <td className="p-4 border-b border-white">{min(value)}</td>
+              <td className="p-4 border-b border-white">{max(value)}</td>
+              <td className="p-4 border-b border-white">
+                {value[value.length - 1]}
+              </td>
             </tr>
           ))}
         </tbody>
